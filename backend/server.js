@@ -11,6 +11,13 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api", taskRoutes);
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Boltic backend is running"
+  });
+});
+
 
 mongoose
   .connect(process.env.MONGO_URI)
