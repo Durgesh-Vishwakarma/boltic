@@ -8,10 +8,17 @@ const API = axios.create({
 API.interceptors.response.use(
   (response) => response,
   (error) => {
-    const message =
+    const rawMessage =
       error.response?.data?.error ||
       error.response?.data?.message ||
+      error.message ||
       "An error occurred";
+    const message =
+      typeof rawMessage === "string"
+        ? rawMessage
+        : rawMessage?.message ||
+          rawMessage?.error ||
+          JSON.stringify(rawMessage);
     return Promise.reject(new Error(message));
   },
 );
