@@ -46,8 +46,22 @@ export default function TaskForm({ onTaskCreated }) {
 
     setLoading(true);
     try {
-      await createTask(form);
-      setForm({ title: "", description: "", assigneeEmail: "", dueDate: "" });
+      const localDate = new Date(form.dueDate);
+
+      const payload = {
+        ...form,
+        dueDate: localDate.toISOString(),
+      };
+
+      await createTask(payload);
+
+      setForm({
+        title: "",
+        description: "",
+        assigneeEmail: "",
+        dueDate: "",
+      });
+
       setSuccess(true);
       toast.success("Task created successfully");
       onTaskCreated();
