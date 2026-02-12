@@ -30,10 +30,10 @@ export default function TaskList({ refresh }) {
   useEffect(() => {
     const interval = setInterval(() => {
       forceUpdate((prev) => prev + 1);
-    }, 60000); // refresh every 1 minute
+    }, 10000); 
 
     return () => clearInterval(interval);
-  }, 10000);
+  },[]);
 
   useEffect(() => {
     loadTasks();
